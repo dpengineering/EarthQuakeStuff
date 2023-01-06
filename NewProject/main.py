@@ -70,6 +70,7 @@ class MainScreen(Screen):
     s0_rotation_direction = 0
     s1_rotation_direction = 0
     clock_control = 0
+    position = ObjectProperty()
 
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -82,8 +83,6 @@ class MainScreen(Screen):
 
         #initalize update freqency of values
         Clock.schedule_interval(self.speed_change, 0.5)
-        Clock.schedule_interval(self.position_update, 0.5)
-
 
     def move(self, motorNumber):
 
@@ -94,6 +93,24 @@ class MainScreen(Screen):
 
             else:
                 s0.free()
+                print("s0: I'm free!!")
+
+
+        if motorNumber == 3:
+            if not s0.is_busy():
+                s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
+                print("moving!")
+
+            else:
+                s0.free()
+                print("s0: I'm free!!")
+
+            if not s1.is_busy():
+                s1.go_until_press(self.s1_rotation_direction, self.ids.speed_slider_2.value)
+                print("moving!")
+
+            else:
+                s1.free()
                 print("s0: I'm free!!")
 
         else:
@@ -165,8 +182,6 @@ class MainScreen(Screen):
 
 
 
-
-
     @staticmethod
     def exit_program():
 
@@ -177,12 +192,8 @@ class MainScreen(Screen):
         print("freedom!")
         quit()
 
-
-
-
-
-
-
+<<<<<<< HEAD:NewProject/main.py
+=======
 
 
 #    def servo_update(self, dt):
@@ -199,61 +210,18 @@ class MainScreen(Screen):
 #
 #                cyprus.set_servo_position(1, .55)
 
-
-
-class AdminScreen(Screen):
-    """
-    Class to handle the AdminScreen and its functionality
-    """
-
-    def __init__(self, **kwargs):
-        """
-        Load the AdminScreen.kv file. Set the necessary names of the screens for the PassCodeScreen to transition to.
-        Lastly super Screen's __init__
-        :param kwargs: Normal kivy.uix.screenmanager.Screen attributes
-        """
-        Builder.load_file('AdminScreen.kv')
-
-        PassCodeScreen.set_admin_events_screen(ADMIN_SCREEN_NAME)  # Specify screen name to transition to after correct password
-        PassCodeScreen.set_transition_back_screen(MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game is pressed"
-
-        super(AdminScreen, self).__init__(**kwargs)
-
-    @staticmethod
-    def transition_back():
-        """
-        Transition back to the main screen
-        :return:
-        """
-        SCREEN_MANAGER.current = MAIN_SCREEN_NAME
-
-    @staticmethod
-    def shutdown():
-        """
-        Shutdown the system. This should free all steppers and do any cleanup necessary
-        :return: None
-        """
-        os.system("sudo shutdown now")
-
-    @staticmethod
-    def exit_program():
-        """
-        Quit the program. This should free all steppers and do any cleanup necessary
-        :return: None
-        """
-        quit()
-
-
+>>>>>>> 3760c4c22ba0e253136760163aef6b39250ba3e9:EarthQuakeStuff/Ex-7-Hardware-Setup/NewProject/main.py
 """
 Widget additions
 """
 
 Builder.load_file('main.kv')
 SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
+<<<<<<< HEAD:NewProject/main.py
+=======
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
-SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
-SCREEN_MANAGER.add_widget(ServoScreen(name='servo'))
+>>>>>>> 3760c4c22ba0e253136760163aef6b39250ba3e9:EarthQuakeStuff/Ex-7-Hardware-Setup/NewProject/main.py
 
 """
 MixPanel

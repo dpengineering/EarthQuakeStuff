@@ -7,7 +7,7 @@
 
     Slider
         id: speed_slider_1
-        center_y: root.height
+        center_y: root.height * 0.3
         min: 50
         max: 6400
         step: 50
@@ -25,7 +25,7 @@
 
     Slider
         id: speed_slider_2
-        center_y: root.height * -0.5
+        center_y: root.height * -0.3
         min: 50
         max: 6400
         step: 50
@@ -94,6 +94,24 @@
         color: .8, .4, .1, 1
         text: "direction change 2"
         on_press: root.change_direction(2)
+
+        DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.5
+        center_y: root.height * 0.5
+        background_color: 0,0,0,0
+        color: .3, .4, .5, 1
+        text: "move_both"
+        on_press: root.move(3)
+
+    DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.5
+        center_y: root.height * 0.5
+        background_color: 0,0,0,0
+        color: .3, .4, .5, 1
+        text: "move_both"
+        on_press: root.move(3)
 
     DPEAButton:
         # Quit button
