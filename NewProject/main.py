@@ -192,12 +192,36 @@ class MainScreen(Screen):
         print("freedom!")
         quit()
 
+<<<<<<< HEAD:NewProject/main.py
+=======
+
+
+#    def servo_update(self, dt):
+#
+#        """Function to handle the limit switch and thus the servo motor"""
+#
+#        if SCREEN_MANAGER.current == SERVO_SCREEN_NAME:
+#           print("hah")
+#            if cyprus.read_gpio() & 0b0001:  # binary bitwise AND of the value returned from read.gpio()
+#
+#                cyprus.set_servo_position(1, .45)
+#
+#            else:
+#
+#                cyprus.set_servo_position(1, .55)
+
+>>>>>>> 3760c4c22ba0e253136760163aef6b39250ba3e9:EarthQuakeStuff/Ex-7-Hardware-Setup/NewProject/main.py
 """
 Widget additions
 """
 
 Builder.load_file('main.kv')
 SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
+<<<<<<< HEAD:NewProject/main.py
+=======
+SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
+SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
+>>>>>>> 3760c4c22ba0e253136760163aef6b39250ba3e9:EarthQuakeStuff/Ex-7-Hardware-Setup/NewProject/main.py
 
 """
 MixPanel
