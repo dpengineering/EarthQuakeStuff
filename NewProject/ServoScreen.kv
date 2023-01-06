@@ -1,0 +1,46 @@
+<ServoScreen>:
+    name: "servo"
+    FloatLayout:
+        size_hint: None, None
+
+    Label:
+        size: 500, 500
+        center_x: root.width * 0
+        center_y: root.height * 0
+        color: .2, .2, .5, 1
+        text: "Servo Screen"
+
+    DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.5
+        center_y: root.height * 0.10
+        color: .6, .2, .3, 1
+        text: "Back to main screen"
+        on_press: root.transition_back()
+
+    DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.25
+        center_y: root.height * 0.5
+        background_color: 0,0,0,0
+        color: .2, .2, .5, 1
+        text: "servo state 0"
+        on_press: root.servo_state_0()
+
+    DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.25
+        center_y: root.height * 0.75
+        background_color: 0,0,0,0
+        color: .2, .2, .5, 1
+        text: "talon button 1"
+        on_press: root.Talon_button_1()
+
+    DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.75
+        center_y: root.height * 0.5
+        background_color: 0,0,0,0
+        color: .2, .2, .5, 1
+        text: "servo state 1"
+        on_press: root.servo_state_1()
