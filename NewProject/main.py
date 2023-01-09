@@ -97,6 +97,7 @@ class MainScreen(Screen):
             print("s0: I'm free!!")
 
     def move_both(self):
+        #moves both motors, does not turn them off.
 
         self.move(s0)
         self.move(s1)
