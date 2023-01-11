@@ -70,6 +70,9 @@ def position_control(position):
     #set up a y = m*(x-(a+b)) function
     #where y is time, m is the distance traveled after reaching speed, x is desired distance to position on spiral,
     # a is distance change when accelerating, and b is distance change when decelerating
+    
+def frequency_control():
+    #increase or decrease speed to increase freqency 
 
 class ProjectNameGUI(App):
 
