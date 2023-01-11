@@ -56,7 +56,8 @@ class ProjectNameGUI(App):
 
 Window.clearcolor = (1, 1, 1, 1)  # White
 
-"""This stepper definition is used in the main screen and is called with s0"""
+"""This stepper definition is used everywhere stepper motors are called in this project. They are called with s0 and 
+s1 and are defined as follows"""
 
 s0 = stepper(port=0, micro_steps=32, hold_current=20, run_current=20, accel_current=20, deaccel_current=20,
              steps_per_unit=200, speed=2)
@@ -64,12 +65,12 @@ s0 = stepper(port=0, micro_steps=32, hold_current=20, run_current=20, accel_curr
 s1 = stepper(port=1, micro_steps=32, hold_current=20, run_current=20, accel_current=20, deaccel_current=20,
              steps_per_unit=200, speed=2)
 
+global s0_rotation_direction
+global s1_rotation_direction
+s0_rotation_direction = 0
+s1_rotation_direction = 1
 
 class MainScreen(Screen):
-    s0_rotation_direction = 0
-    s1_rotation_direction = 0
-    clock_control = 0
-    position = ObjectProperty()
 
     def __init__(self, **kw):
         super().__init__(**kw)
@@ -80,91 +81,99 @@ class MainScreen(Screen):
         clock_control helps control the clock, as if the_dance() has been called the variable should update
         and cancel the clock until the value is returned to 0, which the_dance function does when it is finished running"""
 
-        # initalize update freqency of values
-        Clock.schedule_interval(self.speed_change, 0.5)
+    def move(self, MotorNumber, rotation_direction):
 
-
-
-
-    def move(self, motorNumber):
-
-        if not motorNumber.is_busy():
-            motorNumber.go_until_press(self.motorNumber_rotation_direction, self.ids.speed_slider_1.value)
+        if not s0.is_busy() or not s1.is_busy():
+            MotorNumber.go_until_press(rotation_direction, self.ids.speed_slider_1.value)
             print("moving!")
 
         else:
-            motorNumber.free()
-            print("s0: I'm free!!")
+            MotorNumber.softStop()
+            print("s0: I'm softStopped!")
 
     def move_both(self):
-        #moves both motors, does not turn them off.
+        # moves both motors and turns them off.
 
-        self.move(s0)
-        self.move(s1)
-
-
-    def change_direction(self, motorNumber):
-
-        # checks what motor to run
-        if motorNumber == 1:
-            if s0.is_busy():
-                if self.s0_rotation_direction == 0:
-                    self.s0_rotation_direction += 1
-                    print("direction " + str(self.s0_rotation_direction))
-
-                else:
-                    self.s0_rotation_direction -= 1
-                    print("direction " + str(self.s0_rotation_direction))
-
-                s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
+        if not s0.is_busy() or not s1.is_busy():
+            self.move(s0, s0_rotation_direction)
+            print("moving s0")
+            self.move(s1, s1_rotation_direction)
+            print("moving s1")
 
         else:
-            if self.s1_rotation_direction == 0:
-                self.s1_rotation_direction += 1
-                print("direction " + str(self.s1_rotation_direction))
+            s0.softStop()
+            print("s0: I'm softStopped!!")
+            s1.softStop()
+            print("s1. I'm softStopped!")
 
-            else:
-                self.s1_rotation_direction -= 1
-                print("direction " + str(self.s1_rotation_direction))
+    def speed_change(self):
 
-            s1.go_until_press(self.s1_rotation_direction, self.ids.speed_slider_2.value)
+        """The following is some weird old logic that Roshan wrote, it was based off of my (Rece's) old code and doesn't
+        really apply to my old projects, but it's here if you need it"""
 
-    def speed_change(self, motorNumber):
-
-        if motorNumber == 1:
-            if self.clock_control == 0:
-                if s0.is_busy():
-                    s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
-
-        else:
-            if self.s1_rotation_direction == 0:
-                self.s1_rotation_direction += 1
-                print("direction " + str(self.s1_rotation_direction))
-
-            else:
+        """
+            if motorNumber == 1:
                 if self.clock_control == 0:
                     if s0.is_busy():
                         s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
 
-    def soft_stop(self, motorNumber):
+            else:
+                if self.s1_rotation_direction == 0:
+                    self.s1_rotation_direction += 1
+                    print("direction " + str(self.s1_rotation_direction))
 
-        if motorNumber == 1:
-            "Soft Stop motor 0"
+                else:
+                    if self.clock_control == 0:
+                        if s0.is_busy():
+                            s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
+            """
 
-            s0.softStop()
-            print("stopping!")
+        if s0.is_busy() or s1.is_busy():
+            s0.go_until_press(s0_rotation_direction, self.ids.speed_slider_1.value)
+            s1.go_until_press(s1_rotation_direction, self.ids.speed_slider_1.value)
 
-        else:
-            "Soft Stop motor 0"
+    """The following function is currently commented out as this project should not ever need to change directions"""
 
-            s1.softStop()
-            print("stopping!")
+    """    
+
+    def change_direction(self, motorNumber):
+
+            # checks what motor to run
+            if motorNumber == 1:
+                if s0.is_busy():
+                    if self.s0_rotation_direction == 0:
+                        self.s0_rotation_direction += 1
+                        print("direction " + str(self.s0_rotation_direction))
+
+                    else:
+                        self.s0_rotation_direction -= 1
+                        print("direction " + str(self.s0_rotation_direction))
+
+                    s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
+
+            else:
+                if self.s1_rotation_direction == 0:
+                   self.s1_rotation_direction += 1
+                    print("direction " + str(self.s1_rotation_direction))
+
+                else:
+                    self.s1_rotation_direction -= 1
+                    print("direction " + str(self.s1_rotation_direction))
+
+                s1.go_until_press(self.s1_rotation_direction, self.ids.speed_slider_2.value) 
+
+    """
+
+    def soft_stop(self):
+        s0.softStop()
+        print("s0: stopping!")
+
+        s1.softStop()
+        print("s1: stopping!")
 
     @staticmethod
     def exit_program():
-
         s0.free_all()
-        cyprus.set_servo_position(1, 0.5)
         cyprus.close()
         GPIO.cleanup()
         print("freedom!")
@@ -176,8 +185,7 @@ Widget additions
 """
 
 Builder.load_file('main.kv')
-SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
-SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
+SCREEN_MANAGER.add_widget(MainScreen(name='main'))
 
 """
 MixPanel
