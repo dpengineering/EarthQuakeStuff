@@ -40,6 +40,21 @@ MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
 
 
+
+
+
+
+
+
+
+#Adjust spiral rotating disk posistion to control amplitude
+#adjust disk rotate speed in sync to adjust freqency
+
+#equation for amplitude can be calculated by manually applying a gradient along the sprial
+# using that as the variable value and multiplying that by the change constant which is the
+# amount the spiral shrinks in radius with each loop with max diameter of the spiral and the
+# calibration to get the posistion we can use that to caculate the amplitude
+
 class ProjectNameGUI(App):
 
     """
@@ -96,7 +111,7 @@ class MainScreen(Screen):
                 print("s0: I'm free!!")
 
 
-        if motorNumber == 3:
+        elif motorNumber == 3:
             if not s0.is_busy():
                 s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
                 print("moving!")
@@ -122,6 +137,7 @@ class MainScreen(Screen):
                 s1.free()
                 print("s0: I'm free!!")
 
+    '''''
     def change_direction(self, motorNumber):
 
         #checks what motor to run
@@ -147,6 +163,8 @@ class MainScreen(Screen):
                 print("direction " + str(self.s1_rotation_direction))
 
             s1.go_until_press(self.s1_rotation_direction, self.ids.speed_slider_2.value)
+            
+    '''''
 
     def speed_change(self, motorNumber):
 
@@ -173,8 +191,6 @@ class MainScreen(Screen):
 
             s0.softStop()
             print("stopping!")
-
-        else:
             "Soft Stop motor 0"
 
             s1.softStop()
@@ -192,8 +208,6 @@ class MainScreen(Screen):
         print("freedom!")
         quit()
 
-<<<<<<< HEAD:NewProject/main.py
-=======
 
 
 #    def servo_update(self, dt):
@@ -210,18 +224,14 @@ class MainScreen(Screen):
 #
 #                cyprus.set_servo_position(1, .55)
 
->>>>>>> 3760c4c22ba0e253136760163aef6b39250ba3e9:EarthQuakeStuff/Ex-7-Hardware-Setup/NewProject/main.py
 """
 Widget additions
 """
 
 Builder.load_file('main.kv')
 SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
-<<<<<<< HEAD:NewProject/main.py
-=======
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
->>>>>>> 3760c4c22ba0e253136760163aef6b39250ba3e9:EarthQuakeStuff/Ex-7-Hardware-Setup/NewProject/main.py
 
 """
 MixPanel
