@@ -5,7 +5,14 @@
       <webServer id="a63b0d7e-b90b-46d1-af11-54e45a20c016" name="17.17.21.2">
         <fileTransfer accessType="SFTP" host="172.17.21.2" port="22" sshConfigId="0d8f87ea-2921-4bea-8f14-17215b60c848" sshConfig="pi@172.17.21.2:22 V5" authAgent="true">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="0555e304-226d-4dfd-ae57-3acaca59875b" name="widget123-pi.local">
+        <fileTransfer accessType="SFTP" host="widget123-pi.local" port="22" sshConfigId="026dff5a-cd49-417f-87e9-63b29a0de0ad" sshConfig="pi@widget123-pi.local:22 agent" authAgent="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
