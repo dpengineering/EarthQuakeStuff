@@ -27,9 +27,9 @@
     Slider
         id: speed_slider_2
         center_y: root.height * -0.3
-        min: 50
-        max: 3200
-        step: 100
+        step: .05
+        max: .120
+        min: .80
         orientation: "horizontal"
         text: "position"
         sensitivity: 'handle'
@@ -69,3 +69,24 @@
         color: 0, 0, 0, 1
         text: ""
         on_press: root.exit_program()
+
+
+
+
+    DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.75
+        center_y: root.height * 0.5
+        background_color: 0,0,0,0
+        color: .8, .4, .1, 1
+        text: "increase by 10%"
+        on_press: root.add_10()
+
+    DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.75
+        center_y: root.height * 0.25
+        background_color: 0,0,0,0
+        color: .8, .4, .1, 1
+        text: "decrease by 10%"
+        on_press: root.subtract_10()

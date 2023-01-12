@@ -75,6 +75,8 @@ class MainScreen(Screen):
     def __init__(self, **kw):
         super().__init__(**kw)
 
+        self.motor_0_speed = 0
+
         """Things that are actually happening when the MainScreen class is called
         These variables are only defined here so they can be altered later.
         s0_rotation_dierction controls the rotation direction and stays between 1 and 0.
@@ -108,61 +110,19 @@ class MainScreen(Screen):
 
     def speed_change(self):
 
-        """The following is some weird old logic that Roshan wrote, it was based off of my (Rece's) old code and doesn't
-        really apply to my old projects, but it's here if you need it"""
-
-        """
-            if motorNumber == 1:
-                if self.clock_control == 0:
-                    if s0.is_busy():
-                        s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
-
-            else:
-                if self.s1_rotation_direction == 0:
-                    self.s1_rotation_direction += 1
-                    print("direction " + str(self.s1_rotation_direction))
-
-                else:
-                    if self.clock_control == 0:
-                        if s0.is_busy():
-                            s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
-            """
+        self.motor_0_speed = self.ids.speed_slider_1.value
 
         if s0.is_busy() or s1.is_busy():
             s0.go_until_press(s0_rotation_direction, self.ids.speed_slider_1.value)
             s1.go_until_press(s1_rotation_direction, self.ids.speed_slider_1.value)
 
-    """The following function is currently commented out as this project should not ever need to change directions"""
+    def add_10(self):
+        self.motor_0_speed = self.motor_0_speed + self.motor_0_speed * .1
+        s0.go_until_press(s0_rotation_direction, int(self.motor_0_speed))
 
-    """    
-
-    def change_direction(self, motorNumber):
-
-            # checks what motor to run
-            if motorNumber == 1:
-                if s0.is_busy():
-                    if self.s0_rotation_direction == 0:
-                        self.s0_rotation_direction += 1
-                        print("direction " + str(self.s0_rotation_direction))
-
-                    else:
-                        self.s0_rotation_direction -= 1
-                        print("direction " + str(self.s0_rotation_direction))
-
-                    s0.go_until_press(self.s0_rotation_direction, self.ids.speed_slider_1.value)
-
-            else:
-                if self.s1_rotation_direction == 0:
-                   self.s1_rotation_direction += 1
-                    print("direction " + str(self.s1_rotation_direction))
-
-                else:
-                    self.s1_rotation_direction -= 1
-                    print("direction " + str(self.s1_rotation_direction))
-
-                s1.go_until_press(self.s1_rotation_direction, self.ids.speed_slider_2.value) 
-
-    """
+    def subtract_10(self):
+        self.motor_0_speed = self.motor_0_speed - self.motor_0_speed * .1
+        s0.go_until_press(s0_rotation_direction, int(self.motor_0_speed))
 
     def soft_stop(self):
         s0.softStop()
@@ -178,6 +138,41 @@ class MainScreen(Screen):
         GPIO.cleanup()
         print("freedom!")
         quit()
+
+
+    """
+        # Adjust spiral rotating disk posistion to control amplitude
+        # adjust disk rotate speed in sync to adjust freqency
+
+        # equation for amplitude can be calculated by manually applying a gradient along the sprial
+        # using that as the variable value and multiplying that by the change constant which is the
+        # amount the spiral shrinks in radius with each loop with max diameter of the spiral and the
+        # calibration to get the posistion we can use that to caculate the amplitude
+
+        def update_current_position():
+            # make the color gradient corespond to apmpited then convert amplitude to poition on the spiral
+            self.current_position = self.color_gradient_color * self.sclar_that_realtes_color_gradient_to_position
+            on
+            spiral
+
+        def sekiton_function_amplitude_control(amplitude):
+            # convert desired ampliude to position on spiral and use position control to move the spiral to desired position
+            self.current_amplitude = self.max_radius - (
+                        self.current_position * self.radius_decrease_per_position_change)
+
+        # increase or decrease speed to adjust the position of the disk on the spiral
+        def position_control(position):
+
+        # calculate the distance traveled during the aceleration set the aceleration value constant with the stepper motor
+        # set a value that increases or decreases speed by x value befre hand and increases or decreases speed when adjusting disk position
+        # using the calculated distance traveled during aceleration/deceleration and convert that to am amplitude change then set that as a minimum change in amplitudeto make a change
+        # set up a y = m*(x-(a+b)) function
+        # where y is time, m is the distance traveled after reaching speed, x is desired distance to position on spiral,
+        # a is distance change when accelerating, and b is distance change when decelerating
+
+        def frequency_control():
+    # increase or decrease speed to increase freqency 
+    """
 
 
 """
