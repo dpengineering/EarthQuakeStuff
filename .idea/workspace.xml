@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6f765ad-cbcc-4b3b-85b7-3c0999f88eb0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/NewProject/main.kv" beforeDir="false" afterPath="$PROJECT_DIR$/NewProject/main.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NewProject/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/NewProject/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +46,7 @@
       <updated>1673474500250</updated>
       <workItem from="1673474502680" duration="35000" />
       <workItem from="1673474603835" duration="142000" />
-      <workItem from="1673549164910" duration="3063000" />
+      <workItem from="1673549164910" duration="4634000" />
     </task>
     <servers />
   </component>
@@ -55,6 +55,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/EarthQuakeStuff$EarthQuakeStuff.coverage" NAME="main Coverage Results" MODIFIED="1673035684051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NewProject" />
-    <SUITE FILE_PATH="coverage/EarthQuakeStuff$main.coverage" NAME="main Coverage Results" MODIFIED="1673552120900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NewProject" />
+    <SUITE FILE_PATH="coverage/EarthQuakeStuff$main.coverage" NAME="main Coverage Results" MODIFIED="1673552361143" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/NewProject" />
   </component>
 </project>

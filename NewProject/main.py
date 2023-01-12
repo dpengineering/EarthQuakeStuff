@@ -27,8 +27,6 @@ from pidev.kivy import ImageButton
 from Slush.Devices import L6470Registers
 
 cyprus.initialize()
-cyprus.setup_servo(1)  # sets up P4 on the RPiMIB as an RC servo style output
-cyprus.set_servo_position(1, 0.5)
 
 time = datetime
 spi = spidev.SpiDev()
@@ -65,8 +63,6 @@ s0 = stepper(port=0, micro_steps=32, hold_current=20, run_current=20, accel_curr
 s1 = stepper(port=1, micro_steps=32, hold_current=20, run_current=20, accel_current=20, deaccel_current=20,
              steps_per_unit=200, speed=2)
 
-global s0_rotation_direction
-global s1_rotation_direction
 s0_rotation_direction = 0
 s1_rotation_direction = 1
 
@@ -85,6 +81,11 @@ class MainScreen(Screen):
 
     def move(self, MotorNumber, rotation_direction):
 
+        """General move function for different motors. This will check if both s0 and s1 are busy as it is currently
+        being used to turn two motors simultaneously and should never need to turn one on independently of the other.
+        This can be changed by changing the bellow if statement. The rotation direction is also controlled here. The
+        speed is relative to a slider, in this case slider 1."""
+
         if not s0.is_busy() or not s1.is_busy():
             MotorNumber.go_until_press(rotation_direction, self.ids.speed_slider_1.value)
             print("moving!")
@@ -94,7 +95,8 @@ class MainScreen(Screen):
             print("s0: I'm softStopped!")
 
     def move_both(self):
-        # moves both motors and turns them off.
+
+        """Function that calls the move function twice. This button can turn the motors on or off."""
 
         if not s0.is_busy() or not s1.is_busy():
             self.move(s0, s0_rotation_direction)
@@ -110,6 +112,11 @@ class MainScreen(Screen):
 
     def speed_change(self):
 
+        """Updates the speed of both motors. This will also sync both motors as the "motor_0_speed" which is
+        controlled by the "add_10" and "subtract_10" functions will be overwritten by running this function. This
+        works well, and without changing the other functions this should stay here. The other portions checks if the
+        motors are running and changes the speed if they are, and will do nothing if they are not spinning."""
+
         self.motor_0_speed = self.ids.speed_slider_1.value
 
         if s0.is_busy() or s1.is_busy():
@@ -117,14 +124,27 @@ class MainScreen(Screen):
             s1.go_until_press(s1_rotation_direction, self.ids.speed_slider_1.value)
 
     def add_10(self):
-        self.motor_0_speed = self.motor_0_speed + self.motor_0_speed * .1
+
+        """Changes motor_0_speed to 110% of its previous speed. "motor_0_speed" is defined early in the project and
+        by running the "speed_change" function. This does not have a limit and will push the center thingy beyond its
+        limits, so be careful while using these buttons."""
+
+        self.motor_0_speed = self.motor_0_speed * 1.1
         s0.go_until_press(s0_rotation_direction, int(self.motor_0_speed))
 
     def subtract_10(self):
-        self.motor_0_speed = self.motor_0_speed - self.motor_0_speed * .1
+
+        """Changes motor_0_speed to 90% of its previous speed. "motor_0_speed" is defined early in the project and
+        by running the "speed_change" function. This does not have a limit and will push the center thingy beyond its
+        limits, so be careful while using these buttons."""
+
+        self.motor_0_speed = self.motor_0_speed * .9
         s0.go_until_press(s0_rotation_direction, int(self.motor_0_speed))
 
     def soft_stop(self):
+
+        """Soft stops both motors."""
+
         s0.softStop()
         print("s0: stopping!")
 
@@ -133,6 +153,9 @@ class MainScreen(Screen):
 
     @staticmethod
     def exit_program():
+
+        """Frees all steppers, closes cyprus, cleans up the GPIO, and then calls the "quit()" functions."""
+
         s0.free_all()
         cyprus.close()
         GPIO.cleanup()
