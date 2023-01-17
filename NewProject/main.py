@@ -174,6 +174,13 @@ class MainScreen(Screen):
             sleep(wait_time * -1)
         print("balancing speed")
         s0.go_until_press(s0_rotation_direction, self.freqency_to_motor_speed)
+        
+    def freqency_increase(self, freqency):
+        self.freqency = freqency
+        self.freqency_to_motor_speed = freqency*200
+        s0.go_until_press(s0_rotation_direction, self.freqency_to_motor_speed)
+        s1.go_until_press(s0_rotation_direction, self.freqency_to_motor_speed)
+        
 
     def speed_change(self):
 
