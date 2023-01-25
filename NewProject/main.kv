@@ -1,5 +1,5 @@
 <MainScreen>:
-    #: import time __main__.time
+
 
     name: 'main'
     FloatLayout:
@@ -90,3 +90,12 @@
         color: .8, .4, .1, 1
         text: "decrease by 10%"
         on_press: root.subtract_10()
+
+    DPEAButton:
+        size: 100, 100
+        center_x: root.width * 0.25
+        center_y: root.height * 0.25
+        background_color: 0,0,0,0
+        color: .8, .4, .1, 1
+        text: "does the thing"
+        on_press: root.rayne_test_thing()
